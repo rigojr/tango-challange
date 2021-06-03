@@ -1,0 +1,16 @@
+.posts-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px 40px;
+}
+
+.posts-error {
+  max-width: 300px;
+  margin: 100px 20px;
+
+  &__title {
+    text-align: center;
+    color: red;
+    font-size: 14px;
+  }
+}

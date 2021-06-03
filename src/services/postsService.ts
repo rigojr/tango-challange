@@ -12,6 +12,6 @@ export const getPostsService = () => (dispatch: Dispatch) => {
       else throw new Error('Error getting posts from the BE');
     })
     .catch(err => {
-      dispatch(getPostsFailed(err?.message));
+      dispatch(getPostsFailed({error: err?.message}));
     })
 };

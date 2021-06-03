@@ -14,7 +14,14 @@ const Posts: React.FC = () => {
     dispatch(getPostsService());
   }, [dispatch]);
 
-  return <div className="posts-container">{loading ? <Spinner /> : posts.map(post => <Post {...post} />)}</div>;
+  if (error !== '')
+    return (
+      <div className="posts-error">
+        <h2 className="posts-error__title">{error}</h2>
+      </div>
+    );
+
+  return <div className="posts-container">{loading ? <Spinner /> : posts.map(post => <Post {...post} key={post.id}/>)}</div>;
 };
 
 export default Posts;

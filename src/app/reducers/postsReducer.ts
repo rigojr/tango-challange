@@ -21,7 +21,6 @@ const postsSlice = createSlice({
     },
     getPostsSuccess: (state, { payload }) => {
       const { posts } = payload;
-      console.log(posts);
       state.posts = posts;
       state.loading = false;
     },

@@ -1,0 +1,29 @@
+.post-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: gainsboro;
+  border-radius: 10px;
+  transition: background-color 0.5s ease;
+  cursor: pointer;
+
+  &__title {
+    font-size: 18px;
+    text-align: left;
+  }
+
+  &__body {
+    text-align: left;
+  }
+
+  &__meta-data {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__user-id, &__post-id {
+    font-weight: bold;
+  }
+  &:hover {
+    background-color: whitesmoke;
+  }
+}

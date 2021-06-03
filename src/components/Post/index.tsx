@@ -1,6 +1,8 @@
 import React from 'react';
 import { IPost } from '../../common/type';
 
+import './Post.scss';
+
 const Post: React.FC<IPost> = ({ userId, id, title, body }) => {
   return (
     <div className="post-container">
