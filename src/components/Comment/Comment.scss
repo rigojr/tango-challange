@@ -1,4 +1,15 @@
 .comment-container {
   padding: 10px;
   border-bottom: gainsboro 1px solid;
+  & > * {
+    padding: 0px;
+    margin: 0px;
+  }
+  &__title {
+    font-size: 14px;
+    padding: 0px;
+  }
+  &__author, &__body {
+    font-size: 12px;
+  }
 }

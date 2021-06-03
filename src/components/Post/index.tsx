@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IPost, IComment } from '../../common/type';
 import Comment from '../Comment';
 
 import './Post.scss';
 
 const Post: React.FC<IPost> = ({ userId, id, title, body, comments }) => {
+  const [showComments, setShowComments] = useState<boolean>(false);
+
   return (
     <>
       <div className="post-container">
@@ -14,8 +16,13 @@ const Post: React.FC<IPost> = ({ userId, id, title, body, comments }) => {
           <p className="post-container__user-id">User Id: {userId}</p>
           <p className="post-container__post-id">Post Id: {id}</p>
         </div>
+        {comments && (
+          <button onClick={() => setShowComments(!showComments)} type="button">
+            {showComments ? 'Close Comments' : 'View Comments'}
+          </button>
+        )}
       </div>
-      {comments && (
+      {comments && showComments && (
         <div className="comments-container">
           {comments.map((comment: IComment) => (
             <Comment {...comment} key={comment.id} />
