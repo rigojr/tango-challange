@@ -21,6 +21,7 @@ const postsSlice = createSlice({
     },
     getPostsSuccess: (state, { payload }) => {
       const { posts } = payload;
+      console.log(posts);
       state.posts = posts;
       state.loading = false;
     },
@@ -38,11 +39,6 @@ const postsSlice = createSlice({
 
 export const postsSelector = (state: { postsReducer: PostsState }) => state.postsReducer;
 
-export const {
-  // GET
-  getPosts,
-  getPostsSuccess,
-  getPostsFailed,
-} = postsSlice.actions;
+export const { getPosts, getPostsSuccess, getPostsFailed, cleanError } = postsSlice.actions;
 
 export default postsSlice.reducer;
