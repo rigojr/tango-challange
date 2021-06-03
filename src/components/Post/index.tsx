@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { IPost, IComment } from '../../common/type';
 import Comment from '../Comment';
+import { addComment } from '../../app/reducers/postsReducer';
 
 import './Post.scss';
 
-const Post: React.FC<IPost> = ({ userId, id, title, body, comments }) => {
+const Post: React.FC<IPost> = ({ userId, id, title, body, comments, commentCounts }) => {
   const [showComments, setShowComments] = useState<boolean>(false);
+  const form = useRef(null);
+  const dispatch = useDispatch();
+
+  const handleAddComment = () => {
+    const formData = new FormData(form.current || undefined);
+    const tempComment: IComment = {
+      postId: id,
+      id: commentCounts + 1,
+      name: formData.get('title')?.toString() ?? '',
+      body: formData.get('comment')?.toString() ?? '',
+      email: formData.get('email')?.toString() ?? '',
+    };
+    dispatch(addComment(tempComment));
+  };
 
   return (
     <>
@@ -23,11 +39,21 @@ const Post: React.FC<IPost> = ({ userId, id, title, body, comments }) => {
         )}
       </div>
       {comments && showComments && (
-        <div className="comments-container">
-          {comments.map((comment: IComment) => (
-            <Comment {...comment} key={comment.id} />
-          ))}
-        </div>
+        <>
+          <div className="comments-container">
+            {comments.map((comment: IComment) => (
+              <Comment {...comment} key={comment.id} />
+            ))}
+          </div>
+          <form className="add-comment" ref={form}>
+            <input type="text" placeholder="title" name="title" className="add-comment__element" />
+            <textarea placeholder="comment" name="comment" className="add-comment__element" />
+            <input type="email" placeholder="email" name="email" className="add-comment__element" />
+            <button onClick={handleAddComment} type="button">
+              Add Comment
+            </button>
+          </form>
+        </>
       )}
     </>
   );

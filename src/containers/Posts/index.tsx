@@ -8,7 +8,7 @@ import './Posts.scss';
 
 const Posts: React.FC = () => {
   const dispatch = useDispatch();
-  const { posts, loading, error } = useSelector(postsSelector);
+  const { posts, loading, error, commentCount } = useSelector(postsSelector);
 
   useEffect(() => {
     dispatch(getPostsService());
@@ -21,7 +21,11 @@ const Posts: React.FC = () => {
       </div>
     );
 
-  return <div className="posts-container">{loading ? <Spinner /> : posts.map(post => <Post {...post} key={post.id}/>)}</div>;
+  return (
+    <div className="posts-container">
+      {loading ? <Spinner /> : posts.map(post => <Post {...post} commentCounts={commentCount} key={post.id} />)}
+    </div>
+  );
 };
 
 export default Posts;

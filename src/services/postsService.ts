@@ -11,10 +11,12 @@ export const getPostsService = () => (dispatch: Dispatch) => {
     .then(values => {
       if (values[0].data && values[1].data) {
         const posts = values[0].data;
+        let commentCount = 0;
         values[1].data.forEach((comment: IComment) => {
           const indexPostId = comment.postId - 1;
           const rawPost: IPost = posts[indexPostId];
           if (rawPost) {
+            commentCount += 1;
             const tempPost: IPost = {
               ...rawPost,
               comments: [...(rawPost.comments ?? []), comment],
@@ -22,7 +24,7 @@ export const getPostsService = () => (dispatch: Dispatch) => {
             posts[indexPostId] = tempPost;
           }
         });
-        dispatch(getPostsSuccess({ posts }));
+        dispatch(getPostsSuccess({ posts, commentCount }));
       } else throw new Error('Error getting posts and/or comments from the BE');
     })
     .catch(err => {

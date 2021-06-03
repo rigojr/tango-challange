@@ -32,3 +32,13 @@
   max-height: 300px;
   overflow: scroll;
 }
+
+.add-comment {
+  display: flex;
+  flex-flow: column;
+  max-width: 300px;
+  margin: 0px auto;
+  & > * {
+    margin: 5px 0px;
+  }
+}
