@@ -1,6 +1,6 @@
 // ENTITIES
 
-export interface IComments {
+export interface IComment {
   postId: number;
   id: number;
   name: string;
@@ -13,7 +13,7 @@ export interface IPost {
   id: number;
   title: string;
   body: string;
-  comments: IComments[]
+  comments?: IComment[]
 }
 
 // FATHERS
