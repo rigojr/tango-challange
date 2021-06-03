@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { IPost, IComment } from '../../common/type';
 import Comment from '../Comment';
@@ -8,19 +8,23 @@ import './Post.scss';
 
 const Post: React.FC<IPost> = ({ userId, id, title, body, comments, commentCounts }) => {
   const [showComments, setShowComments] = useState<boolean>(false);
-  const form = useRef(null);
+  const [email, setEmail] = useState<string>('');
+  const [comment, setComment] = useState<string>('');
+  const [name, setName] = useState<string>('');
   const dispatch = useDispatch();
 
   const handleAddComment = () => {
-    const formData = new FormData(form.current || undefined);
     const tempComment: IComment = {
       postId: id,
       id: commentCounts + 1,
-      name: formData.get('title')?.toString() ?? '',
-      body: formData.get('comment')?.toString() ?? '',
-      email: formData.get('email')?.toString() ?? '',
+      name,
+      body: comment,
+      email: email,
     };
-    dispatch(addComment(tempComment));
+    dispatch(addComment({ postId: id - 1, comment: tempComment }));
+    setEmail('');
+    setComment('');
+    setName('');
   };
 
   return (
@@ -45,14 +49,34 @@ const Post: React.FC<IPost> = ({ userId, id, title, body, comments, commentCount
               <Comment {...comment} key={comment.id} />
             ))}
           </div>
-          <form className="add-comment" ref={form}>
-            <input type="text" placeholder="title" name="title" className="add-comment__element" />
-            <textarea placeholder="comment" name="comment" className="add-comment__element" />
-            <input type="email" placeholder="email" name="email" className="add-comment__element" />
+          <div className="add-comment">
+            <input
+              type="text"
+              placeholder="title"
+              name="title"
+              className="add-comment__element"
+              onChange={e => setName(e.target.value)}
+              value={name}
+            />
+            <textarea
+              placeholder="comment"
+              name="comment"
+              className="add-comment__element"
+              onChange={e => setComment(e.target.value)}
+              value={comment}
+            />
+            <input
+              type="email"
+              placeholder="email"
+              name="email"
+              className="add-comment__element"
+              onChange={e => setEmail(e.target.value)}
+              value={email}
+            />
             <button onClick={handleAddComment} type="button">
               Add Comment
             </button>
-          </form>
+          </div>
         </>
       )}
     </>
