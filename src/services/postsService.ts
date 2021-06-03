@@ -3,6 +3,13 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { getPosts, getPostsFailed, getPostsSuccess, cleanError } from '../app/reducers/postsReducer';
 import { IComment, IPost } from '../common/type';
 
+/**
+ * In order to match all the comments and seeing that the PostId
+ * comes in order from the EPs, I decide to add a Promise All in order
+ * to wait comments and posts and matching them. Using the PostId, I just
+ * Index the Post and add its comments in order to avoid heavy functions.
+ */
+
 export const getPostsService = () => (dispatch: Dispatch) => {
   dispatch(cleanError());
   dispatch(getPosts());
