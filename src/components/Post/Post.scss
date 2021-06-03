@@ -27,3 +27,8 @@
     background-color: whitesmoke;
   }
 }
+
+.comments-container {
+  max-height: 300px;
+  overflow: scroll;
+}
